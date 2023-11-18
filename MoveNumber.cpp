@@ -37,13 +37,26 @@ public:
     }
 
     static void total() {
-
-        int a[3][3] =
-                {
-                        {2, 8, 5},
-                        {6, 0, 4},
-                        {3, 1, 7}
-                };
+        unsigned seed = time(nullptr);
+        srand(seed);
+        int tep[8];
+        for (int i = 0; i < 8; ++i) {
+            tep[i] = i + 1;
+        }
+        for (int i = 7; i >= 0; --i) {
+            swap(tep[i], tep[rand() % (i + 1)]);
+        }
+        int a[3][3];
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                if (i == 1 && j == 1)
+                    a[i][j] = 0;
+                else if (i * 3 + j > 4)
+                    a[i][j] = tep[i * 3 + j - 1];
+                else
+                    a[i][j] = tep[i * 3 + j];
+            }
+        }
 
         int i, pos;
 
@@ -91,7 +104,7 @@ public:
         }
         cout << "移动后的数据:\n";
         show(a);
-        cout << "移动次数" << count;
+        cout << "移动次数" << count << endl;
 
     }
 
